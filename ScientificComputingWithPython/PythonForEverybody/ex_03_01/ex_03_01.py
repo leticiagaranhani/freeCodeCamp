@@ -1,4 +1,4 @@
-print("PY4E")
+print("PY4E - Exercise 3.1")
 
 hours = float(input("Enter Hours: "))
 rate = float(input("Enter Rate: "))
