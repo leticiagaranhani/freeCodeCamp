@@ -99,19 +99,70 @@ print("-------------------")
 #         print(key, counts[key])
 
 # Lê o arquivo, separa as palavras de cada linha, insere em um dicionário e contabiliza as ocorrência de cada palavra
-handle = open('/Users/leticiadegaranhani/freeCodeCamp/ScientificComputingWithPython/PythonForEverybody/ex_07_01/mbox-short.txt')
+# handle = open('/Users/leticiadegaranhani/freeCodeCamp/ScientificComputingWithPython/PythonForEverybody/ex_07_01/mbox-short.txt')
+# counts = dict()
+# for line in handle:
+#     words = line.lower().split()
+#     for word in words:
+#         counts[word] = counts.get(word, 0) + 1
+# # print("words : ", words)
+# print("counts : ", counts)
+#
+# bigcount = None
+# bigword = None
+# for word, count in counts.items():
+#     if bigcount is None or count > bigcount:
+#         bigword = word
+#         bigcount = count
+# print('bigword: ', bigword, ' e bigcount:', bigcount)
+
+# formas de ordenar/reordenar dicionários pelos valores
+fhand = open('ex_09/intro.txt')
 counts = dict()
-for line in handle:
-    words = line.lower().split()
+for line in fhand:
+    words = line.split()
     for word in words:
         counts[word] = counts.get(word, 0) + 1
-# print("words : ", words)
-print("counts : ", counts)
 
-bigcount = None
-bigword = None
-for word, count in counts.items():
-    if bigcount is None or count > bigcount:
-        bigword = word
-        bigcount = count
-print('bigword: ', bigword, ' e bigcount:', bigcount)
+lst = list()
+for key, val in counts.items():
+    newtup = (val, key)
+    lst.append(newtup)
+lst = sorted(lst, reverse=True)
+
+for val, key in lst[:10]:
+    print(key, val)
+
+
+# formas MAIS CURTA de ordenar/reordenar dicionários pelos valores
+c = {'a':10, 'b':1, 'c':22}
+print('\n',sorted ( [(v, k) for k,v in c.items() ]))
+print('\n',sorted ( [(v, k) for k,v in c.items() ], reverse=True))
+
+import re
+s = 'A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM'
+lst = re.findall('\\S+@\\S+', s)
+print(lst)
+
+x = 'My 2 favorite numbers are 19 and 42. E agora talvez insira um A. Testando $esd2as5. E também um us365ABBEC.'
+# o "+" abaixo exibe os caracteres numericos unidos, como exibidos na string
+y = re.findall('[0-9]+', x)
+print("y:",y)
+#  retirando o "+", são exibidos individualmente
+y = re.findall('[0-9]', x)
+print("y:",y)
+y = re.findall('[AEIOU]+', x)
+print("y:",y)
+
+# abaixo exibe repetição de caracteres "não em branco" após encontrar "@"
+lin = 'From stephen.marquar@uct.ac.za Sat Jan 5 09:14:16 2008'
+y = re.findall('@([^ ]*)', lin)
+print('\n y =', y)
+
+# iniciando do começo da linha (^), procurando por 'From', exibe repetição de caracteres "não em branco" após encontrar "@"
+y = re.findall('^From .*@([^ ]*)', lin)
+print('\n y =', y)
+
+x = 'We just received $10.00 for cookies.'
+y = re.findall('\$[0-9.]+', x)
+print('\n y =', y)
