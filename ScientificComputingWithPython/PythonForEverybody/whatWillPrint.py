@@ -116,53 +116,83 @@ print("-------------------")
 #         bigcount = count
 # print('bigword: ', bigword, ' e bigcount:', bigcount)
 
-# formas de ordenar/reordenar dicionários pelos valores
-fhand = open('ex_09/intro.txt')
-counts = dict()
-for line in fhand:
-    words = line.split()
-    for word in words:
-        counts[word] = counts.get(word, 0) + 1
+# # formas de ordenar/reordenar dicionários pelos valores
+# fhand = open('ex_09/intro.txt')
+# counts = dict()
+# for line in fhand:
+#     words = line.split()
+#     for word in words:
+#         counts[word] = counts.get(word, 0) + 1
+#
+# lst = list()
+# for key, val in counts.items():
+#     newtup = (val, key)
+#     lst.append(newtup)
+# lst = sorted(lst, reverse=True)
+#
+# for val, key in lst[:10]:
+#     print(key, val)
+#
+#
+# # formas MAIS CURTA de ordenar/reordenar dicionários pelos valores
+# c = {'a':10, 'b':1, 'c':22}
+# print('\n',sorted ( [(v, k) for k,v in c.items() ]))
+# print('\n',sorted ( [(v, k) for k,v in c.items() ], reverse=True))
 
-lst = list()
-for key, val in counts.items():
-    newtup = (val, key)
-    lst.append(newtup)
-lst = sorted(lst, reverse=True)
+# import re
+# s = 'A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM'
+# lst = re.findall('\\S+@\\S+', s)
+# print(lst)
+#
+# x = 'My 2 favorite numbers are 19 and 42. E agora talvez insira um A. Testando $esd2as5. E também um us365ABBEC.'
+# # o "+" abaixo exibe os caracteres numericos unidos, como exibidos na string
+# y = re.findall('[0-9]+', x)
+# print("y:",y)
+# #  retirando o "+", são exibidos individualmente
+# y = re.findall('[0-9]', x)
+# print("y:",y)
+# y = re.findall('[AEIOU]+', x)
+# print("y:",y)
+#
+# # abaixo exibe repetição de caracteres "não em branco" após encontrar "@"
+# lin = 'From stephen.marquar@uct.ac.za Sat Jan 5 09:14:16 2008'
+# y = re.findall('@([^ ]*)', lin)
+# print('\n y =', y)
+#
+# # iniciando do começo da linha (^), procurando por 'From', exibe repetição de caracteres "não em branco" após encontrar "@"
+# y = re.findall('^From .*@([^ ]*)', lin)
+# print('\n y =', y)
+#
+# x = 'We just received $10.00 for cookies.'
+# y = re.findall('\$[0-9.]+', x)
+# print('\n y =', y)
 
-for val, key in lst[:10]:
-    print(key, val)
+# this one did not work
+# import socket
+#
+# mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# mysock.connect(('data.pr4e.org', 80))
+# cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\n\n'.encode()
+# mysock.send(cmd)
+#
+# while True:
+#     data = mysock.recv(512)
+#     if (len(data) < 1):
+#         break
+#     print(data.decode())
+# mysock.close()
 
+# this worked
+import socket
 
-# formas MAIS CURTA de ordenar/reordenar dicionários pelos valores
-c = {'a':10, 'b':1, 'c':22}
-print('\n',sorted ( [(v, k) for k,v in c.items() ]))
-print('\n',sorted ( [(v, k) for k,v in c.items() ], reverse=True))
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
 
-import re
-s = 'A message from csev@umich.edu to cwen@iupui.edu about meeting @2PM'
-lst = re.findall('\\S+@\\S+', s)
-print(lst)
-
-x = 'My 2 favorite numbers are 19 and 42. E agora talvez insira um A. Testando $esd2as5. E também um us365ABBEC.'
-# o "+" abaixo exibe os caracteres numericos unidos, como exibidos na string
-y = re.findall('[0-9]+', x)
-print("y:",y)
-#  retirando o "+", são exibidos individualmente
-y = re.findall('[0-9]', x)
-print("y:",y)
-y = re.findall('[AEIOU]+', x)
-print("y:",y)
-
-# abaixo exibe repetição de caracteres "não em branco" após encontrar "@"
-lin = 'From stephen.marquar@uct.ac.za Sat Jan 5 09:14:16 2008'
-y = re.findall('@([^ ]*)', lin)
-print('\n y =', y)
-
-# iniciando do começo da linha (^), procurando por 'From', exibe repetição de caracteres "não em branco" após encontrar "@"
-y = re.findall('^From .*@([^ ]*)', lin)
-print('\n y =', y)
-
-x = 'We just received $10.00 for cookies.'
-y = re.findall('\$[0-9.]+', x)
-print('\n y =', y)
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    print(data.decode(),end='')
+mysock.close()
