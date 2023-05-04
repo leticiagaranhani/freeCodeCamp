@@ -216,15 +216,90 @@ print("-------------------")
 # for line in fhand:
 #     print(line.decode().strip())
 
-# usando BeautifulSoup pela primeira vez, para web scrapping
-import urllib.request, urllib.parse, urllib.error
-from bs4 import BeautifulSoup
+# # usando BeautifulSoup pela primeira vez, para web scrapping
+# import urllib.request, urllib.parse, urllib.error
+# from bs4 import BeautifulSoup
+#
+# url = input('Enter - ')
+# html = urllib.request.urlopen(url).read()
+# soup = BeautifulSoup(html, "html.parser")
+#
+# # retrieve all of the anchor tags
+# tags = soup('a')
+# for tag in tags:
+#     print(tag.get('href', None))
 
-url = input('Enter - ')
-html = urllib.request.urlopen(url).read()
-soup = BeautifulSoup(html, "html.parser")
+# # como extrair um XML
+# import xml.etree.ElementTree as ET
+# data = '''<person>
+#     <name>Chuck</name>
+#     <phone type="intl">
+#         +1 734 303 4456
+#     </phone>
+#     <email hide="yes"/>
+# </person>'''
+#
+# tree = ET.fromstring(data)
+# print('Name: ', tree.find('name').text)
+# print('Attr: ', tree.find('email').get('hide'))
+# print('Phone: ', tree.find('phone').text.strip())
 
-# retrieve all of the anchor tags
-tags = soup('a')
-for tag in tags:
-    print(tag.get('href', None))
+# import xml.etree.ElementTree as ET
+# input = '''<stuff>
+#     <users>
+#         <user x="2">
+#             <id>001</id>
+#             <name>Chuck</name>
+#         </user>
+#         <user x="7">
+#             <id>009</id>
+#             <name>Brent</name>
+#         </user>
+#     </users>
+# </stuff>'''
+#
+# stuff = ET.fromstring(input)
+# lst = stuff.findall('users/user')
+# print('User count:', len(lst), "\n")
+# for item in lst:
+#     print('Name: ', item.find('name').text)
+#     print('Id: ', item.find('id').text)
+#     print('Attribute', item.get("x"))
+
+# # Como extrair JSON (e parece muito mais simples que xml)
+# import json
+# data1 = '''{
+#     "name": "Chuck",
+#     "phone" : {
+#         "type" : "intl",
+#         "number" : "+1 734 330 4456"
+#     },
+#     "email" : {
+#         "hide" : "yes"
+#     }
+# }'''
+# info = json.loads(data1)
+# print('Name:', info["name"])
+# print('Hide:', info["email"]["hide"])
+
+
+# import json
+# data2 = '''[
+#     {   "id" : "001",
+#         "x" : "2",
+#         "name" : "Chuck"
+#     },
+#     {   "id" : "009",
+#         "x" : "7",
+#         "name" : "Chuck"
+#     }
+# ]'''
+#
+# info2 = json.loads(data2)
+# print("User count:", len(info2), "\n")
+# for item in info2:
+#     print('Name', item["name"])
+#     print('Id', item["id"])
+#     print('Attribute', item["x"])
+
+
