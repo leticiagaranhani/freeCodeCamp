@@ -1,6 +1,7 @@
 fileTeste.txt
 file.txt
 .DS_Store
+bs4/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
