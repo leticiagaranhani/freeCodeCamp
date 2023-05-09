@@ -62,7 +62,8 @@
 # except:
 #     print("File cannot be opened:", fname)
 #     quit()
-# # quit serve para o programa terminar naquele ponto caso não encontre o arquivo, para não dar erro no resto da execução.
+# # quit serve para o programa terminar naquele ponto caso não encontre o arquivo,
+# # para não dar erro no resto da execução.
 # count = 0
 # for line in fhand:
 #     if line .startswith('Subject:'):
@@ -159,7 +160,8 @@ print("-------------------")
 # y = re.findall('@([^ ]*)', lin)
 # print('\n y =', y)
 #
-# # iniciando do começo da linha (^), procurando por 'From', exibe repetição de caracteres "não em branco" após encontrar "@"
+# # iniciando do começo da linha (^), procurando por 'From',
+# # exibe repetição de caracteres "não em branco" após encontrar "@"
 # y = re.findall('^From .*@([^ ]*)', lin)
 # print('\n y =', y)
 #
@@ -224,7 +226,7 @@ print("-------------------")
 # html = urllib.request.urlopen(url).read()
 # soup = BeautifulSoup(html, "html.parser")
 #
-# # retrieve all of the anchor tags
+# # retrieve all the anchor tags
 # tags = soup('a')
 # for tag in tags:
 #     print(tag.get('href', None))
@@ -301,36 +303,109 @@ print("-------------------")
 #     print('Name', item["name"])
 #     print('Id', item["id"])
 #     print('Attribute', item["x"])
+#
+# print(dir(data2))
+# print(type(data2))
 
-# Web Services
-import urllib.request, urllib.parse, urllib.error
-import json
+# # Web Services
+# import urllib.request, urllib.parse, urllib.error
+# import json
+#
+# serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+#
+# while True:
+#     address = input("Enter location: ")
+#     if len(address) < 1: break
+#
+#     url = serviceurl + urllib.parse.urlencode({'address': address})
+#
+#     print('Retrieving...', url, '\n')
+#     uh = urllib.request.urlopen(url)
+#     data = uh.read().decode()
+#     print('Retrieved', len(data), 'characteres.', '\n')
+#
+#     try:
+#         js = json.loads(data)
+#     except:
+#         js = None
+#
+#     if not js or 'status' not in js or js['status'] != 'OK':
+#         print('==== Failure To Retrieve ====', '\n')
+#         print(data)
+#         continue
+#
+#     lat = js["results"][0]["geometry"]["location"]["lat"]
+#     lng = js["results"][0]["geometry"]["location"]["lng"]
+#     print('lat', lat, 'lng', lng)
+#     location = js['results'][0]['formatted_address']
+#     print(location)
 
-serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
 
-while True:
-    address = input("Enter location: ")
-    if len(address) < 1: break
+# # Class example
+# class PartyAnimal:
+#     x = 0
+#     def __init__(self):
+#         print('I am constructed')
+#     def party(self):
+#         self.x = self.x + 1
+#         print('So far', self.x)
+#     def __del__(self):
+#         print('I am destructed', self.x)
+#
+# an = PartyAnimal()
+# an.party()
+# an.party()
+# an.party()
+# an = 42
+# print('an contains', an)
 
-    url = serviceurl + urllib.parse.urlencode({'address': address})
 
-    print('Retrieving...', url, '\n')
-    uh = urllib.request.urlopen(url)
-    data = uh.read().decode()
-    print('Retrieved', len(data), 'characteres.', '\n')
+# # Class example 2
+# class PartyAnimal:
+#     x = 0
+#     name = ""
+#
+#     def __init__(self, z):
+#         self.name = z
+#         print(self.name, "constructed")
+#
+#     def party(self):
+#         self.x = self.x + 1
+#         print(self.name, "party count", self.x)
+#
+#
+# s = PartyAnimal("Sally")
+# s.party()
+#
+# j = PartyAnimal("Jim")
+# j.party()
+# s.party()
 
-    try:
-        js = json.loads(data)
-    except:
-        js = None
 
-    if not js or 'status' not in js or js['status'] != 'OK':
-        print('==== Failure To Retrieve ====', '\n')
-        print(data)
-        continue
+# Class example 3 - Inheritance
+class PartyAnimal:
+    x = 0
+    name = ""
 
-    lat = js["results"][0]["geometry"]["location"]["lat"]
-    lng = js["results"][0]["geometry"]["location"]["lng"]
-    print('lat', lat, 'lng', lng)
-    location = js['results'][0]['formatted_address']
-    print(location)
+    def __init__(self, nam):
+        self.name = nam
+        print(self.name, "constructed")
+
+    def party(self):
+        self.x = self.x + 1
+        print(self.name, "party count", self.x)
+
+class FootballFan(PartyAnimal):
+    points = 0
+    def touchdown(self):
+        self.points = self.points + 7
+        self.party()
+        print(self.name, "points", self.points)
+
+
+s = PartyAnimal("Sally")
+s.party()
+
+j = FootballFan("Jim")
+j.party()
+j.touchdown()
